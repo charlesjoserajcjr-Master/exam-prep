@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Free tracker of the most-asked MMD Chief Mate written exam questions, with exam-length worked answers by Capt. Charles.">
+<title>Capt. Charles Exam Prep</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f4ef; --surface:#ffffff; --surface-2:#eef1f5; --ink:#14202e; --ink-2:#4a5868; --ink-3:#7a8796;
+  --navy:#1f3a5f; --navy-ink:#ffffff; --brass:#b5832a; --brass-soft:#f4e7cc; --line:#dde2e8;
+  --ok:#2e7d4f; --bar:#1f3a5f; --bar-bg:#e3e8ef; --code-bg:#f3f5f8;
+  --radius:12px; --shadow:0 1px 2px rgba(20,32,46,.06),0 4px 16px rgba(20,32,46,.06);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1620; --surface:#16202c; --surface-2:#1c2836; --ink:#e7edf3; --ink-2:#a9b6c4; --ink-3:#7f8d9c;
+    --navy:#7fa6d6; --navy-ink:#0f1620; --brass:#d9a54a; --brass-soft:#3a2f1a; --line:#283646;
+    --ok:#5cc28a; --bar:#7fa6d6; --bar-bg:#243243; --code-bg:#111a24;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1620; --surface:#16202c; --surface-2:#1c2836; --ink:#e7edf3; --ink-2:#a9b6c4; --ink-3:#7f8d9c;
+  --navy:#7fa6d6; --navy-ink:#0f1620; --brass:#d9a54a; --brass-soft:#3a2f1a; --line:#283646;
+  --ok:#5cc28a; --bar:#7fa6d6; --bar-bg:#243243; --code-bg:#111a24;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+a{color:var(--navy)}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.2;margin:0}
+h2{font-size:1.6rem;margin-bottom:.4rem}
+h3{font-size:1.15rem}
+.muted{color:var(--ink-2)}
+.small{font-size:.85rem}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--brass);font-weight:600}
+
+/* hero */
+header.hero{padding:40px 0 28px;border-bottom:1px solid var(--line)}
+.hero h1{font-size:clamp(1.9rem,6vw,2.8rem);margin:.4rem 0 .8rem}
+.hero p.lead{font-size:1.08rem;color:var(--ink-2);max-width:620px;margin:0 0 1.2rem}
+.byline{display:flex;align-items:center;gap:12px;margin-bottom:1.2rem}
+.badge{width:44px;height:44px;border-radius:50%;background:var(--navy);color:var(--navy-ink);display:grid;place-items:center;flex:none}
+.byline strong{display:block}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:1.2rem 0}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px}
+.stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:1.5rem;color:var(--navy)}
+.stat span{font-size:.8rem;color:var(--ink-2)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:999px;padding:12px 20px;font:600 .95rem Inter,sans-serif;cursor:pointer;text-decoration:none}
+.btn-primary{background:var(--navy);color:var(--navy-ink)}
+.btn-ghost{background:transparent;color:var(--navy);border:1px solid var(--line)}
+.ctas{display:flex;flex-wrap:wrap;gap:10px}
+
+section{padding:36px 0;border-bottom:1px solid var(--line)}
+.sec-head{margin-bottom:1rem}
+
+/* tracker */
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin:0 -16px;padding-left:16px;padding-right:16px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:7px 14px;font:500 .85rem Inter,sans-serif;cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{background:var(--navy);color:var(--navy-ink);border-color:var(--navy)}
+.tab .ph{font-size:.7rem;opacity:.75;margin-left:4px}
+.subj-meta{font-size:.85rem;color:var(--ink-2);margin:12px 0}
+.qlist{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+.q-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rank{font:600 .8rem 'JetBrains Mono',monospace;color:var(--ink-3);width:22px;flex:none}
+.bar{flex:1;height:8px;background:var(--bar-bg);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--bar);border-radius:4px}
+.count{font:600 .85rem Inter,sans-serif;color:var(--navy);white-space:nowrap}
+.q-text{margin:0;font-size:.95rem}
+.q-text.clamp{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.q-foot{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;margin-top:8px;font-size:.78rem;color:var(--ink-3)}
+.chip{background:var(--surface-2);border-radius:6px;padding:2px 8px;color:var(--ink-2)}
+.chip.hot{background:var(--brass-soft);color:var(--brass);font-weight:600}
+.more{background:none;border:0;color:var(--navy);font:500 .78rem Inter,sans-serif;cursor:pointer;padding:0;margin-left:auto}
+.lock{margin-top:12px;background:var(--surface-2);border:1px dashed var(--line);border-radius:var(--radius);padding:14px;font-size:.9rem;color:var(--ink-2)}
+
+/* worked examples */
+.ex{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:12px;box-shadow:var(--shadow);overflow:hidden}
+.ex summary{list-style:none;cursor:pointer;padding:16px;display:flex;gap:12px;align-items:flex-start}
+.ex summary::-webkit-details-marker{display:none}
+.ex .tag{flex:none;font:600 .7rem Inter,sans-serif;letter-spacing:.06em;text-transform:uppercase;background:var(--navy);color:var(--navy-ink);border-radius:6px;padding:4px 8px;margin-top:2px}
+.ex .chev{margin-left:auto;flex:none;transition:transform .2s;color:var(--ink-3)}
+.ex[open] .chev{transform:rotate(180deg)}
+.ex-body{padding:0 16px 18px;border-top:1px solid var(--line)}
+.qbox{background:var(--surface-2);border-left:3px solid var(--brass);border-radius:6px;padding:12px 14px;margin:14px 0;font-size:.92rem}
+.qbox .src{display:block;font-size:.75rem;color:var(--ink-3);margin-top:6px}
+.step{font-weight:600;margin:16px 0 4px;color:var(--navy)}
+pre.calc{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:6px 0;font:400 .82rem/1.55 'JetBrains Mono',monospace;color:var(--ink);overflow-x:auto;white-space:pre}
+.answer{background:var(--brass-soft);border-radius:8px;padding:12px 14px;margin-top:14px}
+.answer b{color:var(--brass)}
+.answer ul{margin:.3rem 0 0;padding-left:1.1rem}
+.timebox{display:inline-flex;gap:6px;align-items:center;font-size:.78rem;color:var(--ok);font-weight:600;margin-top:4px}
+.ex-body ol,.ex-body ul{padding-left:1.2rem;margin:.3rem 0}
+.ex-body li{margin:.15rem 0}
+table.lv{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
+table.lv th,table.lv td{border:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+table.lv th{background:var(--surface-2)}
+.sketch{display:block;width:100%;max-width:520px;margin:10px auto;height:auto}
+.sketch text{font:11px Inter,sans-serif;fill:var(--ink-2)}
+.sketch.lg{max-width:440px}
+.sketch.lg text{font-size:15px}
+
+/* roadmap */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feat{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+.feat h3{font-family:Inter,sans-serif;font-size:.98rem;font-weight:600;margin-bottom:4px}
+.feat p{margin:0;font-size:.88rem;color:var(--ink-2)}
+.feat .soon{font-size:.7rem;font-weight:600;color:var(--brass);text-transform:uppercase;letter-spacing:.06em}
+
+/* form */
+form{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+.field{margin-bottom:14px}
+.lbl{display:block;font-weight:600;font-size:.88rem;margin-bottom:6px}
+input[type=text],select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:400 1rem Inter,sans-serif}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:7px 12px;font-size:.85rem;cursor:pointer;background:var(--bg);color:var(--ink-2)}
+.opt input:checked+span{background:var(--navy);border-color:var(--navy);color:var(--navy-ink)}
+.opt input:focus-visible+span{outline:2px solid var(--brass);outline-offset:2px}
+.form-msg{margin-top:12px;font-size:.9rem}
+.form-msg.ok{color:var(--ok)}
+.form-msg.err{color:#c0392b}
+
+footer{padding:28px 0 48px;font-size:.8rem;color:var(--ink-3)}
+@media (max-width:560px){
+  .stats{grid-template-columns:repeat(3,1fr);gap:6px}
+  .stat{padding:10px 8px}.stat b{font-size:1.2rem}.stat span{font-size:.7rem}
+  .grid2{grid-template-columns:1fr}
+  pre.calc{font-size:.74rem}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="eyebrow">MMD written exams · Chief Mate (FG)</div>
+  <h1>Know what's asked. Learn to write it in time.</h1>
+  <p class="lead">A free tracker of the most-repeated MMD written questions, with worked answers written the way you would write them in the exam hall: complete, but short enough to finish in the time.</p>
+  <div class="byline">
+    <div class="badge" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2"/><path d="M12 7v14M5 12H3a9 9 0 0 0 18 0h-2M8 10h8"/></svg>
+    </div>
+    <div><strong>Capt. Charles</strong><span class="muted small">Serving Master Mariner</span></div>
+  </div>
+  <div class="stats">
+    <div class="stat"><b id="st-papers">365</b><span>past papers analysed</span></div>
+    <div class="stat"><b id="st-q">2,381</b><span>unique questions</span></div>
+    <div class="stat"><b>2012–26</b><span>exam sessions</span></div>
+  </div>
+  <div class="ctas">
+    <a class="btn btn-primary" href="#tracker">See the most-asked questions</a>
+    <a class="btn btn-ghost" href="#join">Get early access</a>
+  </div>
+</header>
+
+<section id="tracker">
+  <div class="sec-head">
+    <div class="eyebrow">Free · Frequency tracker</div>
+    <h2>Most-asked questions by subject</h2>
+    <p class="muted small">Counted across every past paper in the library. The same question in different wording is counted once per session. Updated after each exam session.</p>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="subj-meta" id="subj-meta"></div>
+  <ol class="qlist" id="qlist"></ol>
+  <div class="lock">The full tracker (every question, by question slot, with the likely-next list for your exam month) comes with early access.</div>
+</section>
+
+<section id="examples">
+  <div class="sec-head">
+    <div class="eyebrow">Free · Worked examples</div>
+    <h2>Exam-length answers</h2>
+    <p class="muted small">Each answer is sized to the time you actually have per question, with every step the examiner looks for.</p>
+  </div>
+
+  <details class="ex" open>
+    <summary><span class="tag">Cargo</span><div><h3>Oil quantity and ullage, with trim and list</h3><div class="timebox">⏱ About 22 min · Part A compulsory</div></div><svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="ex-body">
+      <div class="qbox">A box-shaped cargo oil tank 30 m × 20 m × 15 m is to be loaded with crude oil at 24°C. Density of oil at 15°C in vacuum = 0.8550 kg/litre. If 4% of the tank volume is to be left for expansion, calculate the quantity of oil loaded and the final ullage by tape at the ullage port located 2 m forward of the aft bulkhead, 1 m above the tank top and 3 m to port of the tank centreline. LBP 240 m, trim 3 m by the stern, list ½° to starboard.<span class="src">MMD past paper, Apr 2026 · also Oct 2025, Jul 2023</span></div>
+      <svg class="sketch" viewBox="0 0 520 170" role="img" aria-label="Sketch of tank profile showing ullage port 2 m forward of aft bulkhead and horizontal oil level in a trimmed tank">
+        <g fill="none" stroke="currentColor" style="color:var(--ink-2)">
+          <polygon points="60,40 360,25 360,145 60,160" stroke-width="1.5"/>
+          <line x1="40" y1="56" x2="380" y2="56" stroke-dasharray="5 4" style="stroke:var(--brass)" stroke-width="1.5"/>
+          <line x1="80" y1="39" x2="80" y2="24" stroke-width="2"/>
+          <line x1="72" y1="24" x2="88" y2="24" stroke-width="2"/>
+          <line x1="80" y1="24" x2="80" y2="56" stroke-dasharray="2 3" style="stroke:var(--navy)"/>
+          <line x1="210" y1="32" x2="210" y2="153" stroke-dasharray="2 4"/>
+          <polygon points="420,40 500,40 500,150 420,150" stroke-width="1.5"/>
+          <line x1="415" y1="72" x2="505" y2="68" stroke-dasharray="5 4" style="stroke:var(--brass)" stroke-width="1.5"/>
+          <line x1="445" y1="40" x2="445" y2="28" stroke-width="2"/>
+          <line x1="460" y1="28" x2="460" y2="150" stroke-dasharray="2 4"/>
+        </g>
+        <text x="62" y="18">Port: 2 m fwd of aft bhd, 1 m above top</text>
+        <text x="186" y="168">Tank centre</text>
+        <text x="20" y="104">AFT</text><text x="366" y="104">FWD</text>
+        <text x="250" y="70" style="fill:var(--brass)">Oil level (horizontal)</text>
+        <text x="412" y="168">Section (looking fwd)</text>
+        <text x="420" y="22">Port 3 m to P</text>
+        <text x="64" y="112">Trim 3 m by stern</text>
+      </svg>
+      <div class="step">1. Volume to load (TOV at 24°C)</div>
+<pre class="calc">Tank vol  = 30×20×15    = 9 000 m³
+Expansion = 0.04×9 000  =   360 m³
+TOV       = 9 000 − 360 = 8 640 m³</pre>
+      <div class="step">2. Ullage on even keel, upright</div>
+<pre class="calc">Oil depth = 8 640 ÷ 600  = 14.400 m
+Ullage    = 15 − 14.400 =  0.600 m
+From port = 0.600 + 1   =  1.600 m</pre>
+      <div class="step">3. Trim correction (port is 13 m aft of tank centre)</div>
+<pre class="calc">(trim ÷ LBP) × dist
+= (3 ÷ 240) × 13 = 0.1625 m
+→ subtract (port aft, trim by stern)</pre>
+      <div class="step">4. List correction (port is 3 m to port, ship listed to stbd)</div>
+<pre class="calc">dist × tan list
+= 3 × tan 0.5° = 0.0262 m
+→ add (port side is high)</pre>
+      <div class="step">5. Final ullage</div>
+<pre class="calc">1.6000 − 0.1625 + 0.0262 = 1.4637 ≈ 1.464 m</pre>
+      <p class="small muted">Check: level change over half-length 0.19 m, half-breadth 0.09 m; surface is 0.60 m below the tank top, so it touches neither top nor bottom.</p>
+      <div class="step">6. Quantity</div>
+<pre class="calc">VCF (54A, 0.8550, 24°C) = 0.9924
+GSV = 8 640 × 0.9924   = 8 574.3 m³
+Vac = 8 574.3 × 0.8550 = 7 331.0 t
+WCF = 0.8550 − 0.0011  = 0.8539
+Air = 8 574.3 × 0.8539 = 7 321.6 t</pre>
+      <div class="answer"><b>Answer</b><ul><li>Final ullage at the port = <strong>1.464 m</strong></li><li>Oil loaded = 8 640 m³ at 24°C = 8 574.3 m³ at 15°C = <strong>7 331.0 t (vacuum) / 7 321.6 t (air)</strong></li></ul></div>
+      <p class="small muted">Examiner looks for: 4% of tank volume, port height added, trim distance from tank centre (not bulkhead), correct sign for each correction, VCF and WCF stated. Confirm VCF against the ASTM table given in the hall.</p>
+    </div>
+  </details>
+
+  <details class="ex">
+    <summary><span class="tag">TCN</span><div><h3>Great circle: distance, initial and final course</h3><div class="timebox">⏱ About 25 min · Section B compulsory</div></div><svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="ex-body">
+      <div class="qbox">Find the initial course, final course and great circle distance from 70°45'N 030°46'E to 40°00'N 110°15'E.<span class="src">MMD past paper, Apr 2026 · variant Jan 2026</span></div>
+      <div class="step">Sketch 1: spherical triangle PAB</div>
+      <svg class="sketch lg" viewBox="0 0 410 290" role="img" aria-label="Spherical triangle with the North Pole P, departure A and arrival B. Sides PA and PB are the co-latitudes, angle P is the d.long, side AB is the great circle distance, the angle at A is the initial course and the angle at B gives the final course.">
+        <g fill="none" stroke-width="2">
+          <path d="M110,40 Q60,110 40,215" style="stroke:var(--ink-2)"/>
+          <path d="M110,40 Q240,120 330,250" style="stroke:var(--ink-2)"/>
+          <path d="M40,215 Q170,140 330,250" style="stroke:var(--brass)" stroke-width="3"/>
+          <path d="M129.9,52.2 A23,23 0 0 1 97.5,59.3" style="stroke:var(--navy)"/>
+          <path d="M40,189 A26,26 0 0 1 63.4,203.4" style="stroke:var(--navy)"/>
+          <path d="M305.3,233.6 A28,28 0 0 1 314,227" style="stroke:var(--navy)"/>
+        </g>
+        <g style="fill:var(--ink)"><circle cx="110" cy="40" r="4"/><circle cx="40" cy="215" r="4"/><circle cx="330" cy="250" r="4"/></g>
+        <text x="122" y="30" style="fill:var(--ink);font-weight:600">P (N Pole)</text>
+        <text x="6" y="240" style="fill:var(--ink);font-weight:600">A</text>
+        <text x="6" y="258">70°45'N 030°46'E</text>
+        <text x="342" y="252" style="fill:var(--ink);font-weight:600">B</text>
+        <text x="236" y="280">40°00'N 110°15'E</text>
+        <text x="112" y="108" style="fill:var(--navy)">∠P = d.long</text><text x="112" y="126" style="fill:var(--navy)">79°29'</text>
+        <text x="50" y="178" style="fill:var(--navy);font-weight:600">IC</text>
+        <text x="232" y="244" style="fill:var(--navy);font-weight:600">∠B</text>
+        <text x="4" y="120">PA = co-lat A</text><text x="4" y="138">19°15'</text>
+        <text x="290" y="110">PB = co-lat B</text><text x="290" y="128">50°00'</text>
+        <text x="112" y="230" style="fill:var(--brass);font-weight:600">AB = D = 49°14.2'</text>
+      </svg>
+      <div class="step">Sketch 2: the route on a Mercator chart</div>
+      <svg class="sketch lg" viewBox="0 0 400 230" role="img" aria-label="Mercator sketch: the great circle from A leaves almost due east, reaches its vertex near 70°52'N 037°11'E, then curves south-east to B, lying poleward of the straight rhumb line.">
+        <g fill="none" stroke-width="1" style="stroke:var(--line)">
+          <line x1="50" y1="50" x2="396" y2="50"/><line x1="50" y1="190" x2="396" y2="190"/>
+          <line x1="60" y1="30" x2="60" y2="200"/><line x1="370" y1="30" x2="370" y2="200"/>
+        </g>
+        <line x1="60" y1="52" x2="370" y2="190" stroke-dasharray="7 6" stroke-width="2" style="stroke:var(--ink-3)"/>
+        <path d="M60,52 C110,38 270,70 370,190" fill="none" stroke-width="3" style="stroke:var(--brass)"/>
+        <g style="fill:var(--ink)"><circle cx="60" cy="52" r="4"/><circle cx="370" cy="190" r="4"/><circle cx="88" cy="47" r="4" style="fill:var(--navy)"/></g>
+        <text x="64" y="74" style="fill:var(--ink);font-weight:600">A</text>
+        <text x="378" y="186" style="fill:var(--ink);font-weight:600">B</text>
+        <text x="70" y="26" style="fill:var(--navy)">V (vertex) 70°52'N 037°11'E</text>
+        <text x="210" y="70" style="fill:var(--brass);font-weight:600">Great circle</text>
+        <text x="120" y="150">Rhumb line</text>
+        <text x="4" y="55">70°N</text><text x="4" y="195">40°N</text>
+        <text x="40" y="222">030°E</text><text x="346" y="222">110°E</text>
+      </svg>
+      <p class="small muted">Draw both in the exam. The triangle shows the examiner which sides and angles you used: ∠A is the initial course; ∠B is the bearing of A from B, which you reverse to get the final course. The chart sketch proves the courses make sense: the initial course is close to 090° because A is almost at the vertex.</p>
+<pre class="calc">Lat A 70°45'N   Lat B 40°00'N
+d.long = 110°15'E − 030°46'E = 79°29' E</pre>
+      <div class="step">1. Distance (cosine formula)</div>
+<pre class="calc">cos D = sin A·sin B + cos A·cos B·cos d.long
+      = (0.94409 × 0.64279) + (0.32969 × 0.76604 × 0.18252)
+      = 0.60685 + 0.04610 = 0.65295
+D     = 49°14.2' = 2 954.2 n.m.</pre>
+      <div class="step">2. Initial course (ABC at A)</div>
+<pre class="calc">A = tan lat A ÷ tan d.long = 2.86356 ÷ 5.38677 = 0.5316 S
+B = tan lat B ÷ sin d.long = 0.83910 ÷ 0.98320 = 0.8534 N
+C = B − A = 0.3218 N
+tan Az = 1 ÷ (C × cos lat A) = 1 ÷ (0.3218 × 0.32969) = 9.4242
+IC = N 83°56.6' E = 083.9° (T)</pre>
+      <div class="step">3. Final course (ABC at B towards A, then reverse)</div>
+<pre class="calc">A = tan lat B ÷ tan d.long = 0.1558 S
+B = tan lat A ÷ sin d.long = 2.9125 N
+C = B − A = 2.7567 N
+tan Az = 1 ÷ (2.7567 × 0.76604) = 0.4735  →  N 25°20.4' W
+FC = reverse = S 25°20.4' E = 154.7° (T)</pre>
+      <div class="step">4. Vertex (sense check)</div>
+<pre class="calc">cos lat V = cos lat A × sin IC = 0.32969 × 0.99441
+lat V = 70°51.7'N
+tan d.long AV = 1 ÷ (sin lat A × tan IC) = 0.1124
+d.long AV = 6°24.7' E  →  long V = 037°10.7'E</pre>
+      <div class="answer"><b>Answer</b><ul><li>Distance <strong>2 954.2 n.m.</strong></li><li>Initial course <strong>083.9° (T)</strong></li><li>Final course <strong>154.7° (T)</strong></li></ul></div>
+      <p class="small muted">Examiner looks for: d.long named, formula written before numbers, ABC naming rules (A opposite to lat when d.long &lt; 90°, B same as destination lat), final course reversed from the bearing at B.</p>
+    </div>
+  </details>
+
+  <details class="ex">
+    <summary><span class="tag">Safety</span><div><h3>Salient features of the ISPS Code</h3><div class="timebox">⏱ About 30 min · most-repeated Safety question</div></div><svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></summary>
+    <div class="ex-body">
+      <div class="qbox">What are the salient features of the ISPS Code to ensure the security of the ship's crew and passengers?<span class="src">MMD past paper, Apr 2026 · asked in 7 sessions since 2018</span></div>
+      <div class="step">Introduction</div>
+      <p>The International Ship and Port Facility Security (ISPS) Code was adopted by IMO in December 2002 under SOLAS Chapter XI-2 and came into force on 1 July 2004. Part A is mandatory; Part B is guidance.</p>
+      <p><strong>Applies to:</strong> passenger ships (including HSC) and cargo ships of 500 GT and above on international voyages, MODUs, and the port facilities serving them.</p>
+      <div class="step">Salient features</div>
+      <ol>
+        <li><strong>Three security levels</strong>, set by the Administration (ship) or port state (port):
+          <table class="lv"><tr><th>Level</th><th>On board</th></tr>
+          <tr><td>1 Normal</td><td>Gangway watch, ID checks, restricted areas locked</td></tr>
+          <tr><td>2 Heightened</td><td>Fewer access points, more patrols, search of persons, baggage and stores</td></tr>
+          <tr><td>3 Exceptional</td><td>Follow authorities' instructions; may stop cargo work or move the ship</td></tr></table></li>
+        <li><strong>Defined responsibilities:</strong> Company Security Officer (CSO) ashore, Ship Security Officer (SSO) on board, Port Facility Security Officer (PFSO). The Master has overriding authority for safety and security (SOLAS XI-2/8).</li>
+        <li><strong>Ship Security Assessment → Ship Security Plan:</strong> SSP approved by the Administration or an RSO; confidential; covers access control, restricted areas, cargo and stores handling, monitoring, response to threats and reporting.</li>
+        <li><strong>Access control and restricted areas:</strong> only identified persons board; visitors escorted; bridge, engine room, steering gear and CO₂ room secured.</li>
+        <li><strong>Screening and monitoring:</strong> baggage, stores and cargo checked; deck lighting, watchkeeping and alarms to detect intruders.</li>
+        <li><strong>Declaration of Security</strong> between ship and port (or ship and ship) when security levels differ or risk is higher.</li>
+        <li><strong>Supporting equipment:</strong> Ship Security Alert System (covert alert), AIS, permanently marked IMO number, Continuous Synopsis Record.</li>
+        <li><strong>Drills and training:</strong> security drills at least every 3 months; exercises at least once each calendar year, not more than 18 months apart; records kept on board.</li>
+        <li><strong>Certification:</strong> International Ship Security Certificate, valid up to 5 years with one intermediate verification.</li>
+      </ol>
+      <div class="step">How this protects crew and passengers</div>
+      <p>Unauthorised persons, weapons and dangerous devices are kept off the ship; threats are detected early; every crew member knows their duties at each level; and the ship can raise a covert alert if attacked.</p>
+      <div class="step">Conclusion</div>
+      <p>The ISPS Code makes security a planned, audited shipboard function with clear roles, a ship-specific plan and trained crew.</p>
+      <p class="small muted">≈ 380 words: about 1½–2 handwritten pages in 30 minutes. Draw the security level table; it earns marks quickly.</p>
+    </div>
+  </details>
+</section>
+
+<section id="coming">
+  <div class="sec-head">
+    <div class="eyebrow">In development</div>
+    <h2>What early access will include</h2>
+  </div>
+  <div class="grid2">
+    <div class="feat"><span class="soon">Phase 1</span><h3>Calculation trainer</h3><p>Oil quantity, draft survey, great circle and more, with new numbers on every attempt and step-by-step checking.</p></div>
+    <div class="feat"><span class="soon">Phase 1</span><h3>Exam-length model answers</h3><p>The most-repeated Cargo and Safety questions, answered to fit the time per question.</p></div>
+    <div class="feat"><span class="soon">Phase 2</span><h3>Answer marking</h3><p>Write your answer and see which key points you covered and which you missed.</p></div>
+    <div class="feat"><span class="soon">Phase 2</span><h3>Orals coach</h3><p>Scenario questions with a Master's answer and the follow-up questions surveyors ask.</p></div>
+  </div>
+</section>
+
+<section id="join">
+  <div class="sec-head">
+    <div class="eyebrow">Early access</div>
+    <h2>Tell me what you need</h2>
+    <p class="muted small">Early sign-ups get free access to the first trainers and a launch discount. Your answers decide what gets built first.</p>
+  </div>
+  <form id="f" novalidate>
+    <div class="field"><label class="lbl" for="nm">Name</label><input type="text" id="nm" autocomplete="name" maxlength="60" required></div>
+    <div class="field"><span class="lbl">Preparing for</span><div class="opts" id="o-grade"></div></div>
+    <div class="field"><span class="lbl">Which part</span><div class="opts" id="o-part"></div></div>
+    <div class="field"><label class="lbl" for="when">Planned exam month</label><select id="when"></select></div>
+    <div class="field"><span class="lbl">What would help most? (pick any)</span><div class="opts" id="o-help"></div></div>
+    <div class="field"><span class="lbl">For a 6-month Phase I pass, you would pay</span><div class="opts" id="o-price"></div></div>
+    <button class="btn btn-primary" type="submit" style="width:100%">Send via WhatsApp</button>
+    <div class="form-msg" id="msg" role="status" aria-live="polite"></div>
+  </form>
+</section>
+
+<footer>
+  <p>Prepared by Capt. Charles. Independent study aid; not affiliated with the Directorate General of Shipping or any Mercantile Marine Department. Question text is from MMD past papers and cited by date; all answers and worked solutions are original. Always check against current regulations and the tables issued in the exam hall.</p>
+</footer>
+</div>
+
+<script type="application/json" id="data">[{"code": "CARGO", "name": "Cargo Handling & Stowage", "phase": "I", "papers": 49, "unique": 361, "to": "Apr 2026", "top": [{"q": "a) What information should be provided by the shipper when loading packaged dangerous cargo as per the IMDG Code? b) What measures will you take to ensure safe stowage and carriage of explosives as per the IMDG Code?", "n": 9, "last": "Jan 2026", "slot": 6}, {"q": "M.V. Hindship arrived in port with drafts F 5.80 m, Mid 6.38 m and A 6.80 m in RD 1.025. After loading 1250 mt of cargo she sailed on an even-keel draft but with 5 cm of hog in seawater of RD 1.025. Calculate her departure drafts F, A and Midships if she sailed in an upright condition after consuming 9.25 mt of DO and 43 mt of FW in port and replenishing 200 mt of FW and 333 mt of HO during her stay at this port.", "n": 5, "last": "Apr 2026", "slot": 1}, {"q": "a) Discuss the planning and preparations required before loading and unloading of vehicles on a car carrier. b) Describe the procedures for opening, closing and securing of hull openings on a Ro-Ro ship.", "n": 5, "last": "Apr 2026", "slot": 9}, {"q": "A box-shaped cargo tank 40 m × 22 m × 18 m was observed to have a sounding of 15 cm by sounding rod. The ullage reference point was located at the tank top, 3 m forward of the aft bulkhead. The vessel was trimmed 1 m by the stern and LBP of the vessel was 255 m. Upon completion of loading in the tank, the vessel was even keel and the ullage of the tank by sonic gauge was 1.10 m. Calculate the quantity of oil loaded in the tank if the observed temperature was 30°C and API gravity was 30.5 in both cases.", "n": 4, "last": "Jan 2026", "slot": 2}, {"q": "a) With reference to the Dock Workers (Safety, Health and Welfare) Act 1990, define \"authorised person\" and \"competent person\". b) Describe the factors to be taken into account during the cargo planning stage in order to minimise damage to watertight transverse bulkheads and tank tops in bulk carriers having combination cargo/ballast holds.", "n": 4, "last": "Jan 2026", "slot": 3}, {"q": "a) What is a PV breaker? How will you ensure that it is protecting the cargo tanks effectively? b) You are the C/O of a crude oil tanker. Explain in proper sequence the procedures to be followed for unloading of cargo and COW in an oil tanker.", "n": 4, "last": "Jan 2026", "slot": 4}, {"q": "a) What are the features of the \"certificate of fitness\" on a gas/chemical carrier? What is the use of the P&A Manual on a chemical tanker? b) Explain in proper sequence the procedures of preparation and then loading operations of a full cargo of LNG.", "n": 4, "last": "Jan 2026", "slot": 5}, {"q": "a) Sketch a general layout of an inert gas system of an oil tanker and describe its operation step by step. b) Differentiate between a P/V valve and a P/V breaker in a tanker.", "n": 4, "last": "Jul 2025", "slot": 4}, {"q": "With reference to the IMDG Code, explain segregation criteria for carriage of dangerous goods. Justify your answers with proper sketches.", "n": 4, "last": "Apr 2025", "slot": 6}, {"q": "a) Briefly state the classification of solid bulk cargoes as prescribed in the IMSBC Code. b) Enumerate hazards associated with Direct Reduced Iron (DRI) and precautions to be taken while making a stowage plan for loading on board a bulk carrier. c) State documents as a Mate you would sign after loading this cargo.", "n": 4, "last": "Apr 2025", "slot": 7}]}, {"code": "TCN", "name": "Terrestrial & Celestial Navigation", "phase": "I", "papers": 34, "unique": 339, "to": "Apr 2026", "top": [{"q": "a) Explain Kepler's laws of planetary motion. b) With suitable sketch explain various types of eclipses.", "n": 4, "last": "Oct 2025", "slot": 8}, {"q": "On 30th November 1992, PM in DR 45°33'(N), 91°15'(E), what stars of 1st and 2nd magnitude or planets will be within 45° of hour angle from the observer's meridian?", "n": 4, "last": "Oct 2024", "slot": 7}, {"q": "At 1530 ship's time on a vessel in DR 15°20'S 179°50'W an observation of the sun's bearing 260° T gave observed long 179°55'W. The vessel then sailed on a course of 265° T at 15 kts. At 1900 hrs an observation of Venus gave an intercept of 4' away and azimuth 165° T. If observation of Venus was calculated using DR obtained by allowing run-on DR latitude and observed long at 1530 hrs, find the ship's position at 1900 hrs.", "n": 3, "last": "Jan 2026", "slot": 5}, {"q": "At 1800 hrs in DR 34°26'N 143°38'W a sight gave PL 040°/220°. After running for one hour another DR was obtained by applying a course of 125°T at 12 kts. This DR was used to calculate another sight which gave T. Az 060° and intercept 5' towards. Calculate the position of the ship at 1900 hrs.", "n": 3, "last": "Jan 2026", "slot": 5}, {"q": "At 1103 an observer on a vessel steering 336° T at 14 knots found the true altitude of the Sun to be 89°29.2', bearing SE'ly (Dec Sun 13°26'S, GHA Sun 304°51.2'). Later at 1312 hrs a point of land in position 12°18'S, 054°45'E was detected by radar at a range of 23 miles. Find the vessel's position at the time of 2nd observation.", "n": 3, "last": "Oct 2025", "slot": 5}, {"q": "On 15th June 1992, in position 20°N 75°E, which stars and planets of 1st & 2nd magnitude will be within 15° of the observer's meridian? Which of them can be used for ex-meridian observation? The observation is to be made at the end of PM civil twilight.", "n": 3, "last": "Oct 2025", "slot": 7}, {"q": "A star rose bearing S 80° E for an observer in latitude 20°S. What will be its true altitude four hours after rising?", "n": 3, "last": "2023", "slot": 8}, {"q": "A general cargo ship having a draft of 9.5 m drops pilot at Bristol Pilot Grounds (51°21'N 003°19'W) in gale force winds and is bound for Bideford Fairway (51°05'N 004°16.4'W). Vessel is equipped with radar, ARPA, AIS, GPS and echo sounder & Doppler log. Plan a safe passage for the intended voyage. Vessel should be kept at least four miles away from the coast during the passage. Plot your courses on the chart, with clear marking of course and distance and course alteration point for each leg of passage. Write the synopsis of passage planning in the answer sheet.", "n": 2, "last": "Apr 2026", "slot": 3}, {"q": "On 21st July 1992, in DR 20°00'N, 075°00'E, which stars and planets of 1st & 2nd magnitude within 30° (of hour angle) of the observer's meridian will be available for observation at the end of PM civil twilight?", "n": 2, "last": "Apr 2026", "slot": 7}, {"q": "A stationary vessel makes the following observations of a star: when LHA = 270°, altitude was 45°. When at maximum azimuth, altitude was 60° and bearing was 045° (G). Find the observed latitude and declination of the star and the gyro error.", "n": 2, "last": "Apr 2026", "slot": 8}]}, {"code": "SAFETY", "name": "Ship Safety & Managerial Skills", "phase": "I", "papers": 48, "unique": 248, "to": "Apr 2026", "top": [{"q": "What are the salient features of the ISPS Code to ensure the security of the ship's crew and passengers?", "n": 7, "last": "Apr 2026", "slot": 2}, {"q": "(a) How is corrosion prevention important to ensure safety of life and marine environment? (b) How does a planned maintenance system help in achieving the safety of the crew on board the ship?", "n": 6, "last": "Apr 2026", "slot": 3}, {"q": "a) What are the essential elements of a risk assessment and the relevance of every element? b) Prepare a risk assessment, as a chief officer, you will make to carry out hot work inside the cargo tank of a chemical tanker.", "n": 6, "last": "Apr 2026", "slot": 7}, {"q": "(a) List out the maintenance requirements for lifting appliances over a period of 5 years. (b) Prepare a maintenance schedule of hydraulic hatch covers.", "n": 6, "last": "Jan 2025", "slot": 2}, {"q": "a) With reference to SOLAS, list the on-board training and instruction you should give to each crew member with model training schedule. b) Prepare an emergency muster list for a ship with a total complement of 21 (4 deck officers including Master, 4 engineer officers, electrician, 5 deck ratings, 3 engine ratings, 2 catering ratings, 1 deck and an engine cadet). Ensure all the information as required by SOLAS is shown.", "n": 5, "last": "Apr 2026", "slot": 1}, {"q": "a) How as a chief officer on a chemical tanker with a hectic work schedule will you prevent fatigue to the crew members? b) What are the various signs you will notice as a sign of fatigue?", "n": 5, "last": "Oct 2025", "slot": 4}, {"q": "a) What precautions would you take before and while painting steel deck plates? b) The fore peak water ballast tank is showing signs of corrosion. How would you treat it?", "n": 5, "last": "Oct 2025", "slot": 7}, {"q": "a) As a chief officer, how will you improve safety awareness of crew and officers on board? What various methods will you use? b) Describe the structured shipboard training program as per STCW 2010.", "n": 4, "last": "Apr 2026", "slot": 5}, {"q": "a) Explain the purpose of the LSA Code and when it came into force. b) List requirements for lifeboats as per the LSA Code.", "n": 4, "last": "Apr 2026", "slot": 1}, {"q": "a) What are the essential elements you will evaluate while setting the priorities? b) What are the factors you, as a chief officer, will consider while delegating various tasks to your subordinates?", "n": 4, "last": "Jan 2026", "slot": 7}]}, {"code": "MET", "name": "Meteorology", "phase": "I", "papers": 48, "unique": 254, "to": "Apr 2026", "top": [{"q": "a) Describe various types of weather facsimile charts / weather-related information available to the mariner. How are these charts used for weather routeing purposes? b) What do you understand by vessel's performance curves and their use?", "n": 7, "last": "Oct 2025", "slot": 6}, {"q": "Find the height of tide at Bhavnagar (#4346) on 9th Feb 1992 at 1200 hrs by simplified harmonic constant method.", "n": 5, "last": "Apr 2026", "slot": 1}, {"q": "Find the height of tide at 0230 hours LT on 9th January 1992 at port Apollo Bandar (No. 4359 ATT-II) by simple harmonic method.", "n": 5, "last": "Apr 2026", "slot": 1}, {"q": "Describe with a suitable sketch the ocean currents of the North and South Pacific Ocean. Also identify the warm and cold currents.", "n": 5, "last": "Apr 2026", "slot": 5}, {"q": "a) Describe the life span of Arctic region icebergs. b) Describe functions of the International Ice Patrol.", "n": 5, "last": "Oct 2025", "slot": 4}, {"q": "a) Describe significant wave height and fetch. b) Explain the method of shipboard weather routing with suitable diagrams.", "n": 4, "last": "Apr 2026", "slot": 6}, {"q": "Your ship, a bulk carrier carrying steel cargo, is due to sail from Southampton to New York in the month of December. What are all the factors you will consider regarding weather routeing for your passage across the Atlantic Ocean?", "n": 4, "last": "Apr 2026", "slot": 6}, {"q": "Describe in detail (with the help of a neat sketch) the conditions and values of lapse rates which lead to stability / instability of atmosphere.", "n": 4, "last": "Oct 2025", "slot": 2}, {"q": "Write short notes on the following: a) depletion of ozone layer and its impact on environment; b) frontogenesis and frontolysis and its significance to the mariner.", "n": 4, "last": "Oct 2025", "slot": 4}, {"q": "a) Explain: i) trough; ii) crest; iii) wave length; iv) wave height. b) Explain briefly: i) drift current; ii) upwelling current; iii) gradient current.", "n": 4, "last": "Oct 2025", "slot": 5}]}, {"code": "NA1", "name": "Naval Architecture I", "phase": "I", "papers": 54, "unique": 385, "to": "Apr 2026", "top": [{"q": "a) Sketch and describe Impressed Current Cathodic Protection system used on ships. b) Compare the merits and demerits of cathodic protection system by sacrificial anodes and ICCP system.", "n": 9, "last": "Apr 2026", "slot": 9}, {"q": "M.V. 'Hindship' berthed in a dock where RD of water is 1.007, at a draft of F 7.87 m, A 8.32 m, KG 7.45 m, FSM 970 Mt. She discharged 410 t of cargo from 2 TD. A 60 t case is shifted from deck, Kg 14.7 m, LCG 58.6 m to No. 2 hold. 110 t water Kg 2.77 m, LCG 16.23 m was received in No. 8 (P & S) tanks, filling them completely. Calculate the draft F & A at which she would sail from the dock.", "n": 6, "last": "Apr 2026", "slot": 3}, {"q": "With reference to the International Code for the Carriage of Grain in bulk explain: a) intact stability criteria as applicable to ships carrying grain in bulk; b) volumetric heeling moments and its effects on stability.", "n": 6, "last": "Apr 2026", "slot": 5}, {"q": "a) Explain what is \"close-up inspection\" and \"critical areas\" with reference to Enhanced Survey programs. Describe the contents of \"Documents File\". b) Write short notes on Condition Assessment Scheme (CAS).", "n": 6, "last": "Apr 2026", "slot": 7}, {"q": "What is a galvanic cell in terms of corrosion? Describe SACP or ICCP methods of corrosion prevention.", "n": 6, "last": "Apr 2026", "slot": 9}, {"q": "a) Describe testing requirements of main W/T compartments on cargo ships. b) Write short notes on watertight, weathertight, oil tight and corrugated bulkheads.", "n": 5, "last": "Apr 2026", "slot": 6}, {"q": "a) Draw the horizontal sliding power operated watertight door fitted on a ship. b) Enumerate the SOLAS requirements for a power operated watertight door on ships.", "n": 4, "last": "Jan 2026", "slot": 4}, {"q": "a) What are the regulations for the positioning of the collision bulkheads? b) What are the special strengthening arrangements provided for the collision bulkhead compared to bulkheads fitted elsewhere?", "n": 4, "last": "Jan 2026", "slot": 6}, {"q": "Write a brief note on butt, lap and fillet welds. List and describe the main causes of faults in welding and show how these defects can be improved by good welding practice.", "n": 4, "last": "Oct 2025", "slot": 8}, {"q": "a) Sketch and label bow door (side opening) of a Ro-Ro ferry. b) Describe SOLAS regulations for minimum number of watertight bulkheads to be placed in a ship.", "n": 4, "last": "Jul 2025", "slot": 4}]}, {"code": "NA2", "name": "Naval Architecture II", "phase": "II", "papers": 27, "unique": 228, "to": "Feb 2026", "top": [{"q": "A box-shaped vessel 180 m × 18 m floats in SW at an even keel draft of 6.4 m. A forward hold of length 25 m whose aft bulkhead is 40 m aft of the FP and is bilged. If the permeability of the hold is 80% and KG of vessel was 4.7 m, determine fwd & aft draft in the final condition.", "n": 4, "last": "Nov 2025", "slot": 2}, {"q": "M.V. Hindship was floating with all compartments empty except as follows: No. 2 (P & S) DB tanks full with water ballast; No. 1 DB tank contained 100 tonnes of H.F.O. (FSM of HFO = 413 tm). An inclining experiment was conducted in this condition. A weight of 10 tonnes kg 10.2 m shifted transversely through a distance of 17.6 m caused a deflection of 8.3 cm in a plumb line 8.5 m in length. Calculate the GM (solid) and the KG of the light ship.", "n": 4, "last": "Aug 2025", "slot": 1}, {"q": "Sketch and label the mid-ship section of a Ro-Ro vessel.", "n": 4, "last": "Aug 2025", "slot": 4}, {"q": "Sketch and label the mid-ship section of a Type 2 chemical carrier.", "n": 4, "last": "Feb 2024", "slot": 4}, {"q": "a) Sketch and label mid-ship section of a hatch coverless cellular container ship. (15 marks) b) Discuss the advantages and disadvantages of such ships over a normal container ship. (10 marks)", "n": 4, "last": "2023", "slot": 4}, {"q": "Sketch and label the mid-ship section of a spherical type LNG [carrier and] enumerate the special features of these types of ships.", "n": 4, "last": "Sep 2021", "slot": 4}, {"q": "Sketch and label the mid-ship section of a Double Hull Crude oil tanker.", "n": 4, "last": "Apr 2021", "slot": 4}, {"q": "a) Differentiate between a Type 'A' and Type 'B-100' ships as per International Load Line Convention 1966 as amended. b) With respect to International Tonnage Convention 1969 as amended, give two examples of excluded space.", "n": 4, "last": "2015", "slot": 7}, {"q": "Discuss the \"Conditions of Assignment\" as per the International Convention on Load Lines as amended.", "n": 3, "last": "Feb 2026", "slot": 7}, {"q": "M.V. Hindship is floating at a draught of F 5.73 m, A 6.42 m, at an angle of loll of 4°. FS moment = 1563 tm. Assuming the ship to be wall-sided, calculate her KG.", "n": 3, "last": "May 2025", "slot": 1}]}, {"code": "ML", "name": "Maritime Legislation", "phase": "II", "papers": 62, "unique": 315, "to": "Feb 2026", "top": [{"q": "Discuss the statutory obligation of the ship as per M.S Act 1958 for the following: a) to render assistance to a vessel in distress; and b) in the event of collision with another vessel in high seas.", "n": 8, "last": "Feb 2026", "slot": 7}, {"q": "Describe the contents of convention of limitations of liability for maritime claims (LLMC).", "n": 6, "last": "2025", "slot": 8}, {"q": "Explain the following terms as used in marine insurance: a) perils of the seas; b) sue and labour; c) subrogation; d) deviation.", "n": 5, "last": "Feb 2026", "slot": 9}, {"q": "a) List the entries to be made in ORB part 1 and Part 2? b) Enumerate the contents and validity of IOPP Certificate?", "n": 5, "last": "Nov 2025", "slot": 6}, {"q": "Discuss the rights of the coastal state Authority in Territorial Sea and the Contiguous zone & the navigable rights available to foreign flag vessels in these zones?", "n": 5, "last": "2025", "slot": 9}, {"q": "Discuss and distinguish between Hague and Hague-Visby Rules with regards to the following: a) applicability of the rules; b) limitation of liability; c) time limit for initiating claims and suits.", "n": 5, "last": "2024", "slot": 7}, {"q": "What is the difference between Civil Liability Convention (CLC) and the Fund Convention? The 2002 amendments to CLC 92 and FUND 92 are incorporated into the M.S. Act 1958; what additional benefits are available to the States?", "n": 5, "last": "Oct 2022", "slot": 5}, {"q": "Write short notes on following requirements as per MLC 2006: a) food and catering standards; b) minimum requirements for seafarers to work on a ship; c) occupational health, medical care, welfare and social security protection.", "n": 4, "last": "Feb 2026", "slot": 5}, {"q": "a) List and briefly explain the functions of a Bill of Lading. b) What precautions are to be taken when an original Bill of Lading is carried on board and delivery is made against the same? c) \"Bill of lading is to be signed as presented\" – is the term stipulated in the charter party. What do you understand by this?", "n": 4, "last": "Feb 2026", "slot": 8}, {"q": "a) List the statutory and mandatory certificates and documents carried on board an Indian registered gas carrier in conformance with IMO conventions and Codes. b) What is the purpose of FAL Convention, 1965 and describe how its objectives are met? List the various forms those are mandatory as per the Convention.", "n": 4, "last": "Nov 2025", "slot": 4}]}, {"code": "ENG", "name": "Engineering Knowledge", "phase": "II", "papers": 43, "unique": 251, "to": "Feb 2026", "top": [{"q": "a) What is osmotic pressure and briefly explain why pressure applied in RO system is very high. b) Sketch and describe a low-pressure evaporator.", "n": 5, "last": "Aug 2025", "slot": 3}, {"q": "Describe the refrigeration cycle and the refrigerants used for refrigeration on board ships.", "n": 5, "last": "Aug 2025", "slot": 6}, {"q": "a) Name the three types of indicator cards taken for main engine on board a ship. b) Sketch and describe briefly any two of these cards.", "n": 5, "last": "Aug 2025", "slot": 9}, {"q": "a) Sketch and describe a hydraulic windlass drive system. b) Describe the purpose of hydraulic accumulator.", "n": 4, "last": "Feb 2026", "slot": 10}, {"q": "a) Sketch a simple hydraulic system used for anchor windlass. b) What maintenance is required on the hydraulic system for trouble-free operation?", "n": 4, "last": "Nov 2025", "slot": 8}, {"q": "Sketch and describe an electro-hydraulic steering gear system. In case of failure of controls between bridge to steering gear room, what action is required to be taken?", "n": 4, "last": "Aug 2025", "slot": 4}, {"q": "a) Describe the advantages and disadvantages of a hydraulic system used on board. b) Explain the effect of air, water, dirt and insufficient cooling on the hydraulic system operation.", "n": 4, "last": "Aug 2025", "slot": 8}, {"q": "a) Sketch and describe a typical domestic refrigeration system on board a ship. b) How is a refrigerant leakage detected?", "n": 4, "last": "May 2025", "slot": 6}, {"q": "Describe the arrangements necessary for appropriate and effective engineering room watches to be maintained for the purpose of safety under normal circumstances and UMS operations.", "n": 4, "last": "Feb 2025", "slot": 10}, {"q": "a) Sketch and describe a 4-ram hydraulic steering gear system. b) Explain how the automatic fail-safe arrangement is achieved in such a system.", "n": 4, "last": "Nov 2024", "slot": 4}]}]</script>
+<script>
+(function(){
+  // WhatsApp number in international format, digits only (e.g. 9198xxxxxxxx). Set before sharing.
+  var WA_NUMBER = "919003186086";
+
+  var DATA = JSON.parse(document.getElementById("data").textContent);
+  var tabs = document.getElementById("tabs"), list = document.getElementById("qlist"), meta = document.getElementById("subj-meta");
+  var current = 0;
+  try { var saved = localStorage.getItem("cc-tab"); if (saved !== null && DATA[+saved]) current = +saved; } catch(e) {}
+
+  function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+  DATA.forEach(function(s, i){
+    var b = el("button", "tab"); b.type = "button"; b.setAttribute("role","tab");
+    b.textContent = s.name; var ph = el("span","ph","Ph " + s.phase); b.appendChild(ph);
+    b.addEventListener("click", function(){ current = i; try{localStorage.setItem("cc-tab", String(i));}catch(e){} render(); });
+    tabs.appendChild(b);
+  });
+
+  function render(){
+    Array.prototype.forEach.call(tabs.children, function(b, i){ b.setAttribute("aria-selected", i === current ? "true" : "false"); });
+    var s = DATA[current];
+    meta.textContent = s.papers + " papers · " + s.unique + " unique questions · latest paper " + s.to;
+    list.innerHTML = "";
+    var max = s.top[0] ? s.top[0].n : 1;
+    s.top.forEach(function(q, i){
+      var li = el("li","q");
+      var top = el("div","q-top");
+      top.appendChild(el("span","rank", String(i+1).padStart(2,"0")));
+      var bar = el("div","bar"); var fill = el("i"); fill.style.width = Math.max(8, Math.round(q.n / max * 100)) + "%"; bar.appendChild(fill); top.appendChild(bar);
+      top.appendChild(el("span","count", "Asked " + q.n + "×"));
+      li.appendChild(top);
+      var p = el("p","q-text clamp", q.q); li.appendChild(p);
+      var foot = el("div","q-foot");
+      foot.appendChild(el("span","chip", "Q" + q.slot + " slot"));
+      foot.appendChild(el("span", q.last.indexOf("2026") >= 0 ? "chip hot" : "chip", "Last asked " + q.last));
+      if (q.q.length > 180) {
+        var m = el("button","more","Show full question"); m.type = "button";
+        m.addEventListener("click", function(){ var c = p.classList.toggle("clamp"); m.textContent = c ? "Show full question" : "Show less"; });
+        foot.appendChild(m);
+      }
+      li.appendChild(foot);
+      list.appendChild(li);
+    });
+  }
+  render();
+
+  // ---- form
+  function chips(id, name, items, multi){
+    var box = document.getElementById(id);
+    items.forEach(function(t, i){
+      var l = el("label","opt"); var inp = document.createElement("input");
+      inp.type = multi ? "checkbox" : "radio"; inp.name = name; inp.value = t; if (!multi && i === 0) inp.checked = true;
+      l.appendChild(inp); l.appendChild(el("span", null, t)); box.appendChild(l);
+    });
+  }
+  chips("o-grade","grade",["Chief Mate FG","Master FG","2nd Mate FG","Other"]);
+  chips("o-part","part",["Phase I writtens","Phase II writtens","Orals"]);
+  chips("o-help","help",["Calculation trainer","Model answers","Answer marking","Likely-next questions","Orals coach","MS Act 2025 / law"], true);
+  chips("o-price","price",["Free only","₹1,000–2,000","₹3,000–5,000","Above ₹5,000"]);
+
+  var sel = document.getElementById("when"), M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"], now = new Date();
+  sel.appendChild(new Option("Not decided yet",""));
+  for (var k = 0; k < 12; k++){ var d = new Date(now.getFullYear(), now.getMonth() + k, 1); var v = M[d.getMonth()] + " " + d.getFullYear(); sel.appendChild(new Option(v, v)); }
+
+  var form = document.getElementById("f"), msg = document.getElementById("msg");
+  function val(name){ var x = form.querySelector('input[name="'+name+'"]:checked'); return x ? x.value : ""; }
+  function vals(name){ return Array.prototype.map.call(form.querySelectorAll('input[name="'+name+'"]:checked'), function(x){ return x.value; }); }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var name = document.getElementById("nm").value.trim();
+    if (!name){ msg.className = "form-msg err"; msg.textContent = "Please add your name."; document.getElementById("nm").focus(); return; }
+    var text = "Early access – Capt. Charles Exam Prep\n" +
+      "Name: " + name + "\nPreparing for: " + val("grade") + " (" + val("part") + ")" +
+      "\nExam month: " + (sel.value || "Not decided") +
+      "\nMost helpful: " + (vals("help").join(", ") || "-") +
+      "\nWould pay: " + val("price");
+    if (!/^\d{10,15}$/.test(WA_NUMBER)) {
+      msg.className = "form-msg err"; msg.textContent = "Sign-ups open shortly. Please check back soon."; return;
+    }
+    var url = "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(text);
+    var w = window.open(url, "_blank", "noopener");
+    msg.className = "form-msg ok";
+    msg.textContent = "";
+    msg.appendChild(document.createTextNode("Thanks, " + name + ". WhatsApp should open with your details. Tap send to finish. "));
+    if (!w) { var a = el("a", null, "Open WhatsApp"); a.href = url; a.target = "_blank"; a.rel = "noopener"; msg.appendChild(a); }
+  });
+})();
+</script>
+</body>
+</html>
